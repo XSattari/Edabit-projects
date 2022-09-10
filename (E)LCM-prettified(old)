@@ -1,0 +1,102 @@
+from functools import reduce
+import time
+
+def is_prime(num):
+    c = 0
+    if num == 1:
+        c += 1
+    else:
+        for i in range(2, int(num)):
+            if (num % i) == 0:
+                c += 1
+    return c == 0
+
+def primefactors(num):
+    x = 3
+    pset = []
+    while is_prime(num) == False and num % 2 == 0:
+        num = int(num) / 2
+        pset.append(2)
+    while is_prime(num) == False:
+        if num % x == 0:
+            num = int(num) / x
+            pset.append(x)
+        else:
+            x += 2
+    pset.append(int(num))
+    return pset
+
+def lcm(lst):
+    if 1 in lst:
+        lst.remove(1)
+    if len(lst) == 0:
+        return 1
+    lt = []
+    for item in lst:
+        for x in primefactors(item):
+            if str(primefactors(item)).count(str(x)) > lt.count(str(x)):
+                lt.append(str(x))
+    prod = reduce(lambda x, y: int(x)*int(y), lt)
+    return int(prod)
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+print("What would you like to do?\n1- Check an integer to see if it is a prime number\n2- Find the prime factors of a given integer\n3- Find the lcm of a given list of integers\n")
+time.sleep(1)
+inp = input("Please input the correspoding number of what operation you would like to execute:\n")
+
+if inp == "1":
+    print("\n======================================\nPrime Number:")
+    time.sleep(1)
+    pin = input("\nEnter an integer to check if it is a prime number\n")
+    try:
+        if int(pin) > 0:
+            print(f"Your number is {pin}")
+            time.sleep(1)
+            print(f"{pin} is a prime number") if is_prime(int(pin)) == True else print(f"{pin} is not a prime number")
+            time.sleep(1)
+            print("\n======================================\n")
+    except:
+        print("Invalid integer")
+
+elif inp == "2":
+    print("\n======================================\nPrime Factors:")
+    time.sleep(1)
+    fpin = input("\nEnter an integer to find its prime factors\n")
+    try:
+        if int(fpin) > 0:
+            print(f"Your number is {fpin}")
+            time.sleep(1)
+            print(f"The prime factors of this number are {primefactors(int(fpin))}")
+            time.sleep(1)
+            print("\n======================================\n")
+    except:
+        print("Invalid integer")
+
+elif inp == "3":
+    print("\n======================================\nLowest Common Multiple:")
+    time.sleep(1)
+    print("\nInput a list of numbers to find the lowest common multiple.\nEnter an integer to add it to the list of numbers. Entering a non-integer will end your list.")
+    cnt = 0
+    ul = []
+    while cnt == 0:
+        gi = input("")
+        try:
+            if int(gi) > 0:
+                ul.append(int(gi))
+        except:
+            break
+    print(f"Your list of numbers is {ul}")
+    time.sleep(1)
+    print(f"The lowest common multiple of these numbers is {lcm(ul)}")
+    time.sleep(1)
+    print("\n======================================\n")
+else: 
+    print("Invalid operation")
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+'''
+This has three main applications:
+    - Checking if a number is prime
+    - Finding the prime factors of a given number
+    - Determining the lowest common multiple (lcm) of given numbers
