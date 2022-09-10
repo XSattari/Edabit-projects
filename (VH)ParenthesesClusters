@@ -1,0 +1,15 @@
+#https://edabit.com/challenge/Fpymv2HieqEd7ptAq
+
+def split(txt):
+    res = []
+    x = 2
+    while len(txt) != 0:
+        if txt[:x].count("(") == txt[:x].count(")"):
+            res.append(txt[:x])
+            txt = txt[x:] 
+            x = 2
+        else:
+            x+=2
+    return res
+    
+    
