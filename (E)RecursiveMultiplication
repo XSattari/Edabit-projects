@@ -1,3 +1,5 @@
+https://edabit.com/challenge/nimEZ6nfJ2vqzYBTL
+
 def multiply(x, y):
 	if y == 1:
 		return x
